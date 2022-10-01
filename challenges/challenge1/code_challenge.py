@@ -3,7 +3,7 @@ import orjson
 import simplejson
 import json
 import os
-
+import sys
 def show_menu():
     print('#######################')
     print('Choise the kind of function that you want to execute:')
@@ -44,11 +44,19 @@ def testing_json_libraries(library_name):
     sec_convertion(json_time, library_name)
 
 def testing_writing_plain_file(how_many_lines):
-    execution_time = timeit(lambda: writing_down(how_many_lines), number = 100)
-    sec_convertion(execution_time, 'writing down')
+    try:
+        execution_time = timeit(lambda: writing_down(how_many_lines), number = 100)
+        sec_convertion(execution_time, 'writing down')
+        if how_many_lines < 0:
+            raise ValueError('Number of lines should be a positive number')
+    except ValueError as ve:
+        print(ve)
 
 def general_function_executor(function_name, arg):
-    eval(function_name)(arg)
+    try:
+        eval(function_name)(arg)
+    except:
+        print('An Error occurred' , sys.exc_info()[0])
 
 os.system("cls")
 while True:
@@ -62,7 +70,7 @@ while True:
         library = input()
         general_function_executor(function,library)
     elif opt == "2":
-        print("Write the name of the function and the number of lines to write down: ")
+        print("Write the name of the function and the number of lines to write down(A positive integer number): ")
         print('function name: testing_writing_plain_file')
         function = input()
         print('argument value: 1000? 10000?')
