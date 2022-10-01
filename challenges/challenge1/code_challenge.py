@@ -19,19 +19,33 @@ with open("campaign.json") as file:
 def serialize(lib):
     lib.dumps(response)
 
+def writing_down(how_many_lines):
+    with open('list_of_numbers.txt','w') as file:
+        print(how_many_lines)
+        for cont in range(int(how_many_lines)):
+            file.write(str(cont)+"\n")
+            print(cont)
+
 def sec_convertion(sec, some_text):
     hours = sec // 3600
     left_seconds = sec % 3600
     minutes = left_seconds // 60
-    seconds = left_seconds % 60
-    text = '{}: It got {} hours ' + ' {} minutes' + ' {} seconds'
+    tmp_seconds = left_seconds % 60
+    print(tmp_seconds)
+    seconds, milliseconds = divmod(tmp_seconds,1)
+    milliseconds = round(milliseconds * 1000)
+    text = '{}: It got {} hours ' + ' {} minutes' + ' {} seconds'+ ' {} milliseconds'
     
-    print(text.format(some_text,hours,minutes,seconds))
+    print(text.format(some_text,hours,minutes,seconds,milliseconds))
 
 def testing_json_libraries(library_name):
     print(library_name)
     json_time = timeit(lambda: serialize(eval(library_name)), number = 100)
     sec_convertion(json_time, library_name)
+
+def testing_writing_plain_file(how_many_lines):
+    execution_time = timeit(lambda: writing_down(how_many_lines), number = 100)
+    sec_convertion(execution_time, 'writing down')
 
 def general_function_executor(function_name, arg):
     eval(function_name)(arg)
@@ -42,14 +56,18 @@ while True:
     opt = input('Enter here your choice number --> ')
     if opt == "1":
         print("Write the name of the function and the library to mesuere the execution time of parsing a big json: ")
-        print('funcion name: testing_json_libraries')
+        print('function name: testing_json_libraries')
         function = input()
         print('argument value: json, simplejson')
         library = input()
         general_function_executor(function,library)
     elif opt == "2":
-        print('opt 2')
-        sec_convertion(80000)
+        print("Write the name of the function and the number of lines to write down: ")
+        print('function name: testing_writing_plain_file')
+        function = input()
+        print('argument value: 1000? 10000?')
+        lines_number = input()
+        general_function_executor(function,lines_number)
     elif opt == "2":
         print('opt 3')
     else:
