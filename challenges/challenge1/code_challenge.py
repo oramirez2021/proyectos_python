@@ -9,16 +9,17 @@ def show_menu():
     print('Choise the kind of function that you want to execute:')
     print('1. Testing time of parsing json libraries')
     print('2. Testing time of processing numbers algorithms')
-    print('3. Testing time of processing strings algorithms')
     print('#######################')
 
-
+#this json is used as a base of data. This challenge will run using this json
 with open("campaign.json") as file:
     response = json.load(file)
 
+#This function will process the current json using a certain lib that pass as an argument
 def serialize(lib):
     lib.dumps(response)
 
+#This function will create a file called list_of_numbers.txt and print there the increase of cont variable.
 def writing_down(how_many_lines):
     with open('list_of_numbers.txt','w') as file:
         print(how_many_lines)
@@ -26,6 +27,7 @@ def writing_down(how_many_lines):
             file.write(str(cont)+"\n")
             print(cont)
 
+#This function will convert the seconds in hours, minutes, seconds and milliseconds
 def sec_convertion(sec, some_text):
     hours = sec // 3600
     left_seconds = sec % 3600
@@ -38,11 +40,13 @@ def sec_convertion(sec, some_text):
     
     print(text.format(some_text,hours,minutes,seconds,milliseconds))
 
+#This function will measure the serialize function a certain number of times in my example I'm using 100 times. This will return the total of seconds of the execution
 def testing_json_libraries(library_name):
     print(library_name)
     json_time = timeit(lambda: serialize(eval(library_name)), number = 100)
     sec_convertion(json_time, library_name)
 
+#This function will measure the writing down functionality a certain number of times, 100 in my challenge. . This will return the total of seconds of the execution
 def testing_writing_plain_file(how_many_lines):
     try:
         execution_time = timeit(lambda: writing_down(how_many_lines), number = 100)
@@ -52,6 +56,7 @@ def testing_writing_plain_file(how_many_lines):
     except ValueError as ve:
         print(ve)
 
+#This is the function that will execute others functions with its arguments also.
 def general_function_executor(function_name, arg):
     try:
         eval(function_name)(arg)
@@ -59,6 +64,7 @@ def general_function_executor(function_name, arg):
         print('An Error occurred' , sys.exc_info()[0])
 
 os.system("cls")
+#This portion will create the iteractive console menu. With the options of the challenge
 while True:
     show_menu()
     opt = input('Enter here your choice number --> ')
