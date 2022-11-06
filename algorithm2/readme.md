@@ -21,10 +21,10 @@ kevin		stuart
 A	        4	N	        5
 AN	        3	NA	        4
 ANA	        3	NAN	        4
-ANAN	    3	NANA	    3   
-ANANA	    2	NANAN	    3
-ANANAN	    2	NANANA	    2
-ANANANA	    2	NANANAN	    2
+ANAN	    	3	NANA	    	3   
+ANANA	    	2	NANAN	    	3
+ANANAN	    	2	NANANA	    	2
+ANANANA	    	2	NANANAN	    	2
 ANANANAN	1	NANANANA	1
 		        NANANANAN	1
 	        20		        25
